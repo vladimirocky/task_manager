@@ -24,13 +24,10 @@
         "images"
       ]
     },
-    "state": {
+    "completed": {
       "type": "boolean",
       "default": false,
       "required": false
-    },
-    "create": {
-      "type": "datetime"
     },
     "users_permissions_users": {
       "type": "relation",
