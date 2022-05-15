@@ -36,7 +36,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (auth.token) {
+    if (auth.getCookie()) {
       next()
       return
     }

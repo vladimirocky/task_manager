@@ -25,7 +25,7 @@ class Auth {
         updatedCookie += "=" + optionValue;
       }
     }
-
+    this.token = value
     document.cookie = updatedCookie;
   }
 
@@ -38,6 +38,7 @@ class Auth {
   }
 
   deleteCookie(name = 'token') {
+    this.token = null
     this.setCookie(name, "", {
       'max-age': -1
     })

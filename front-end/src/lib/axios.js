@@ -6,7 +6,6 @@ class API {
     adapter
 
     constructor() {
-        this.token = auth.token
         this.adapter = Axios.create({
             baseURL: 'api/'
         })
@@ -14,8 +13,8 @@ class API {
         this.adapter.interceptors.request.use(
             (config) => {
                 const res = config
-                if(this.token){
-                  res.headers.Authorization = `Bearer ${this.token}`
+                if(auth.token){
+                  res.headers.Authorization = `Bearer ${auth.token}`
                 }
                 return config
             })
@@ -51,14 +50,13 @@ class API {
 
     registerUser(data) {
       return this.adapter.post(`auth/local/register`, data).then((response) => {
-        document.cookie = `token=${response.data.jwt}`
+        auth.setCookie('token', response.data.jwt)
       })
     }
 
     login(data) {
       return this.adapter.post(`auth/local/`, data).then((response) => {
-        console.log('set cookies')
-        document.cookie = `token=${response.data.jwt}`
+        auth.setCookie('token', response.data.jwt)
       })
     }
 

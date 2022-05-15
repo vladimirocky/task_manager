@@ -60,10 +60,11 @@ export default defineComponent({
         identifier: email.value,
         password: password.value
       }).then(()=> {
-        console.log('route')
         email.value = ''
         password.value = ''
-        router.replace({name: 'todos'})
+        setTimeout(()=>{
+          router.replace({name: 'todos'})
+        }, 300)
       })
 
     }
