@@ -4,7 +4,7 @@ import TodoPage from "@/views/TodoPage";
 import LoginPage from "@/views/LoginPage";
 import RegisterPage from "@/views/RegisterPage";
 
-import token from '@/lib/auth'
+import auth from '@/lib/auth'
 
 const routes = [
   {
@@ -36,7 +36,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (token) {
+    if (auth.token) {
       next()
       return
     }

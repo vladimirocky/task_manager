@@ -1,12 +1,12 @@
 import Axios from 'axios'
 
-import token from '@/lib/auth'
+import auth from '@/lib/auth'
 
 class API {
     adapter
 
     constructor() {
-        this.token = token
+        this.token = auth.token
         this.adapter = Axios.create({
             baseURL: 'api/'
         })
@@ -19,6 +19,19 @@ class API {
                 }
                 return config
             })
+
+        // this.adapter.interceptors.response.use(
+        //   (response) => response,
+        //   (error) => {
+        //     const res = error.response
+        //     const COMPLETE_STATUSES = [401, 403];
+        //     if (res && COMPLETE_STATUSES.includes(Number(res.status))) {
+        //       if(this.token){
+        //         // auth.deleteCookie()
+        //       }
+        //     }
+        //   },
+        // )
     }
 
     getTodos(){
@@ -44,6 +57,7 @@ class API {
 
     login(data) {
       return this.adapter.post(`auth/local/`, data).then((response) => {
+        console.log('set cookies')
         document.cookie = `token=${response.data.jwt}`
       })
     }
