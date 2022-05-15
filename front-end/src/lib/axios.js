@@ -1,9 +1,12 @@
 import Axios from 'axios'
 
+import token from '@/lib/auth'
+
 class API {
     adapter
 
     constructor() {
+        this.token = token
         this.adapter = Axios.create({
             baseURL: 'api/'
         })
@@ -11,7 +14,9 @@ class API {
         this.adapter.interceptors.request.use(
             (config) => {
                 const res = config
-                res.headers.Authorization = `Bearer 1a2a97710c31dcbf7363fd45f843bf1333063710900a66dbb7ff6b8c2fc064e15e979b1bca44b24c959587f3dd805dc70088b7005a384a35263ddeb8aac1f66912aad72ea63e6d70bab03a983c5c79308273a86b4b96337b5516d98be0081d501ad3f0a909503548b51ab738d765dbfd447acebacc02bb5d3139a34540f96523`
+                if(this.token){
+                  res.headers.Authorization = `Bearer ${this.token}`
+                }
                 return config
             })
     }
@@ -29,6 +34,18 @@ class API {
     }
     deleteTodo(id){
         return this.adapter.delete(`tasks/${id}`)
+    }
+
+    registerUser(data) {
+      return this.adapter.post(`auth/local/register`, data).then((response) => {
+        document.cookie = `token=${response.data.jwt}`
+      })
+    }
+
+    login(data) {
+      return this.adapter.post(`auth/local/`, data).then((response) => {
+        document.cookie = `token=${response.data.jwt}`
+      })
     }
 
 }

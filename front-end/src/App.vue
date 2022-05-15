@@ -1,13 +1,13 @@
 <template>
-  <TodoApp title="Todo App"/>
+  <router-view>
+  </router-view>
 </template>
 
 <script>
-import TodoApp from './components/TodoApp.vue'
 import { defineComponent } from 'vue'
+
 export default defineComponent({
   components: {
-    TodoApp
   },
   setup(){
     //logic for auth and other things

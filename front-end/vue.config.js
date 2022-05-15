@@ -3,8 +3,8 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     proxy: {
-      "api": {
-        target: "http://localhost:1337",
+      "/api": {
+        target: "https://task-manager-devhouse.herokuapp.com/",
         changeOrigin: true,
       }
     }
